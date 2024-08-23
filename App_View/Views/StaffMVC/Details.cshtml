@@ -1,0 +1,100 @@
+﻿@using App_Data.Entities
+@model App_Data.Entities.Staff
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Chi tiết</h1>
+
+<div>
+    <h4>Nhân viên</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Mã
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+        <dt class = "col-sm-2">
+            Tên
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            Email FE
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AccountFE)
+        </dd>
+        <dt class = "col-sm-2">
+            Email FPT
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AccountFPT)
+        </dd>
+    </dl>
+</div>
+<hr>
+<h2>Danh sách bộ môn chuyên ngành theo cơ sở</h2>
+<div class="col-12">
+    <div class="col-3 offset-9">
+        <a class="btn btn-success" asp-action="AddMajor" asp-route-id="@Model?.Id">Thêm môn chuyên ngành</a>
+    </div>  
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                STT
+            </th>
+            <th>
+                Cơ sở
+            </th>
+            <th>
+                Bộ môn
+            </th>
+            <th>
+                Chuyên ngành
+            </th>
+            <th>
+                Hành động
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int stt = 0;
+            foreach (Staff_MajorFacility item in ViewBag.ListMajor)
+            {
+
+                stt++;
+                <tr>
+                    <td>
+                        @stt
+                    </td>
+                    <td>
+                        @Html.DisplayFor(ModelItem => item.major_Facility.department_Facility.Facility.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(ModelItem => item.major_Facility.department_Facility.Department.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(ModelItem => item.major_Facility.Major.Name)
+                    </td>
+                    <td>
+                        Tạm thời chưa có
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
